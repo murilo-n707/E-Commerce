@@ -4,13 +4,8 @@ import dev.javaspring.ecommerce.model.Produto;
 import dev.javaspring.ecommerce.repository.ProdutoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -62,10 +57,4 @@ public class ProdutoController {
                     .build();
         }
     }
-
-
-
-
 }
-
-

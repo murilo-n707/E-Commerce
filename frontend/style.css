@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.header{
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    background: dodgerblue;
+    height: 8vh;
+    align-items: center;
+}
+.titulo{
+    display: flex;
+    justify-content: center;
+    padding: 5vh;
+}
+.box1{
+    height: 70vh;
+    width: 80vh;
+    background: floralwhite ;
+    border-radius: 12px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+
+    button{
+        width: 200px;
+    }
+}
