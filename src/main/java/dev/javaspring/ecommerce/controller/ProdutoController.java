@@ -20,7 +20,7 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody Produto produto){
-        if (repository.existePorNome(produto.getNome())){
+        if (repository.existsByNome(produto.getNome())){
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
                     .body("Erro: Já existe um produto cadastrado com esse nome.");
