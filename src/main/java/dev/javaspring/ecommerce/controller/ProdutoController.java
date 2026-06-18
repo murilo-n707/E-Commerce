@@ -33,17 +33,20 @@ public class ProdutoController {
                     .body(produtoSalvo);
         }
     }
-    @GetMapping
+
+    @GetMapping("/listar")
     public List<Produto> listarTodos(){
         return repository.findAll();
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    @DeleteMapping
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<Produto> remover(@PathVariable Long id){
 
         if (!repository.existsById(id)){

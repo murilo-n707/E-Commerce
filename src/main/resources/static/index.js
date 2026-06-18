@@ -1,31 +1,42 @@
-const container = document.querySelector(".box1")
 const botaoBuscar = document.getElementById("search")
 const botaoListar = document.getElementById("list")
 const botaoCadastro = document.getElementById("post")
 const botaoDeletar = document.getElementById("delete")
-
 const botoes = [botaoBuscar, botaoListar, botaoCadastro, botaoDeletar];
+const botaoVoltar = document.getElementById("voltar")
+
+
+botaoVoltar.style.visibility = "hidden";
 
 botaoListar.addEventListener("click", () => {
-    fetch("/api/produtos", {method:"GET"})
+    fetch("/api/produtos/listar", {method:"GET"})
         .then(resposta => {
             if (resposta.ok) {
+
                 botoes.forEach(e => e.style.visibility = "hidden");
-                const botaoVoltar = document.createElement("button");
-                container.style.position = "relative"
+                botaoVoltar.style.visibility = "visible";
 
-                botaoVoltar.style.position = "absolute";
-                botaoVoltar.style.top = "20px"
-                botaoVoltar.style.left = "20px"
-                botaoVoltar.style.width = "100px"
-                botaoVoltar.style.height = "25px"
-                botaoVoltar.innerText = "Voltar"
-                //Parei aqui, vou colocar um event listener no botao voltar para os botoes anteriores aparecerem, e então vou colocar a tabela.
-                container.appendChild(botaoVoltar);
+                botaoVoltar.addEventListener("click", () => {
+                    botoes.forEach(e => e.style.visibility = "visible");
+                    if (botoes[0] && botoes[0].checkVisibility() === true){
+                        botaoVoltar.style.visibility = "hidden";
 
+
+
+                    }else{
+                        botaoVoltar.style.visibility = "visible";
+                    }
+                })
+
+            }else{
+                alert("Falha em listar usuários.")
             }
         })
 })
+
+//colocar a tabela seguindo as instruções na area de trabalho
+//ver se o passo acima realmente ta funcionando implementando a funçaõ de cadastro de novos itens no banco de dados.
+
 botaoBuscar.addEventListener("click", () =>{
     fetch("/api/produtos", {method:"/{id}"})
 })

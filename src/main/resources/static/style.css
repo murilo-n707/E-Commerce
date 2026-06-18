@@ -16,6 +16,7 @@
     padding: 5vh;
 }
 .box1{
+    position: relative;
     height: 70vh;
     width: 80vh;
     background: floralwhite ;
@@ -30,8 +31,12 @@
     margin: 0 auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 
-    .botaoVoltar{
-
+    .voltar{
+        position: absolute;
+        left: 30px;
+        top: 30px;
+        width: 100px;
+        height: 25px;
     }
 
     button{
