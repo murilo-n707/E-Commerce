@@ -8,6 +8,16 @@ const botaoVoltar = document.getElementById("voltar")
 
 botaoVoltar.style.visibility = "hidden";
 
+botaoVoltar.addEventListener("click", () => {
+    botoes.forEach(e => e.style.visibility = "visible");
+    if (botoes[0] && botoes[0].checkVisibility() === true){
+        botaoVoltar.style.visibility = "hidden";
+
+    }else{
+        botaoVoltar.style.visibility = "visible";
+    }
+})
+
 botaoListar.addEventListener("click", () => {
     fetch("/api/produtos/listar", {method:"GET"})
         .then(resposta => {
@@ -16,17 +26,23 @@ botaoListar.addEventListener("click", () => {
                 botoes.forEach(e => e.style.visibility = "hidden");
                 botaoVoltar.style.visibility = "visible";
 
-                botaoVoltar.addEventListener("click", () => {
-                    botoes.forEach(e => e.style.visibility = "visible");
-                    if (botoes[0] && botoes[0].checkVisibility() === true){
-                        botaoVoltar.style.visibility = "hidden";
+                resposta.json().then(dados => {
+                    const corpoTabela = document.getElementById("corpo_tabela");
+                    corpoTabela.innerHTML = "";
 
-
-
-                    }else{
-                        botaoVoltar.style.visibility = "visible";
-                    }
-                })
+                    dados.forEach(item => {
+                        const linha = document.createElement("tr");
+                        linha.innerHTML = `
+                            <td>${item.id}</td>          
+                            <td>${item.nome}</td>        
+                            <td>${item.valor}</td>       
+                            <td>${item.descricao}</td>   
+                            <td>${item.imagem}</td>      
+                            <td>${item.estoque}</td>     
+                        `;
+                        corpoTabela.appendChild(linha);
+                    });
+                });
 
             }else{
                 alert("Falha em listar usuários.")
