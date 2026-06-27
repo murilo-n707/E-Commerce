@@ -18,23 +18,45 @@
         <button id="post">Cadastrar novo produto</button>
         <button id="delete">Remover item por ID</button>
 
-        <table id="tabela">
+        <table id="tabela" class="tabela">
             <thead>
-                <tr id="tr">
+                <tr id="tr" class="tr">
+                    <th>ID</th>
                     <th>Nome</th>
                     <th>Valor</th>
-                    <th>Descrição</th>
-                    <th>Imagem</th>
                     <th>Estoque</th>
                 </tr>
             </thead>
-            <tbody id="corpo_tabela">
+            <tbody id="corpo_tabela" class="corpo_tabela">
 
             </tbody>
         </table>
 
         <button id="voltar" class="voltar">Voltar</button>
 
+        <form id="formulario" class="formulario">
+            <div class="campo">
+                <label for="nome">Nome do produto: </label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+
+            <div class="campo">
+                <label for="valor">Valor do produto: </label>
+                <input type="text" id="valor" name="valor" required>
+            </div>
+
+            <div class="campo">
+                <label for="estoque">Quantidade em estoque: </label>
+                <input type="text" id="estoque" name="estoque" required></input>
+            </div>
+
+            <div class="campo">
+                <label for="imagem">Imagem do anuncio(apenas formato PNG): </label>
+                <input type="file" id="imagem" name="imagem" required accept="image/png"></input>
+            </div>
+
+            <button id="cadastrar" submit>Cadastrar</button>
+        </form>
     </div>
 
 </body>

@@ -32,6 +32,7 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 
     .voltar{
+        visibility: hidden;
         position: absolute;
         left: 30px;
         top: 30px;
@@ -42,4 +43,28 @@
     button{
         width: 200px;
     }
+
+    .tabela{
+        visibility: hidden;
+        position: absolute;
+        padding-bottom: 200px;
+
+        border-collapse: separate;
+        border-spacing: 15px;
+        border:1px solid black;
+        border-radius: 10px;
+
+        font-family: Arial, sans-serif;
+    }
+
+    .formulario{
+        visibility: hidden;
+        position: absolute;
+    }
+
+
+
+
+
 }
+
