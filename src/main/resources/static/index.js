@@ -7,6 +7,7 @@ const botaoVoltar = document.getElementById("voltar")
 const tabela = document.getElementById("tabela");
 const corpoTabela = document.getElementById("corpo_tabela")
 const formulario = document.getElementById("formulario")
+const botaoFechar = document.getElementById("botao_fechar")
 
 
 function voltar(a) {
@@ -81,6 +82,7 @@ botaoBuscar.addEventListener("click", () =>{
         })
         .then(produto => {
             if (produto){
+                botaoFechar.style.visibility = "visible"
                 exibirRetorno(produto)
                 div.style.visibility = "visible"
             }

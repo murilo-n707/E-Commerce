@@ -81,6 +81,14 @@
         flex-direction: column;
         font-size: 25px;
     }
+    .botao_fechar{
+        visibility: hidden;
+        position: absolute;
+        left: 30px;
+        top: 30px;
+        width: 100px;
+        height: 25px;
+    }
 
 
 
