@@ -5,6 +5,8 @@ import dev.javaspring.ecommerce.repository.ProdutoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -19,18 +21,22 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody Produto produto){
+    public ResponseEntity<?> cadastrar(
+            @ModelAttribute Produto produto,
+            @RequestParam("arquivoImagem") MultipartFile arquivoImagem ) throws java.io.IOException {
         if (repository.existsByNome(produto.getNome())){
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
                     .body("Erro: Já existe um produto cadastrado com esse nome.");
-        }else {
-
-            Produto produtoSalvo = repository.save(produto);
+        } else {
+            if (arquivoImagem != null && !arquivoImagem.isEmpty()) {
+                produto.setImagem(arquivoImagem.getBytes());
+            }
+            repository.save(produto);
 
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(produtoSalvo);
+                    .body("Produto cadastrado com sucesso");
         }
     }
 

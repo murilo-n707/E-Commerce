@@ -7,7 +7,7 @@ const botaoVoltar = document.getElementById("voltar")
 const tabela = document.getElementById("tabela");
 const corpoTabela = document.getElementById("corpo_tabela")
 const formulario = document.getElementById("formulario")
-const cadastrar = document.getElementById("cadastrar")
+
 
 function voltar(a) {
     if (a === "mostrar"){
@@ -64,7 +64,37 @@ botaoListar.addEventListener("click", () => {
         })
 })
 botaoBuscar.addEventListener("click", () =>{
-    fetch("/api/produtos", {method:"/{id}"})
+
+    const div = document.getElementById("resultado_pesquisa")
+    let entrada_id = prompt("Digite o id a ser buscado")
+
+    fetch(`/api/produtos/${entrada_id}`, {method:"GET"})
+        .then(resposta =>{
+            if (resposta.status === 404){
+                alert("Produto não encontrado no banco de dados")
+            }
+            else if(resposta.status === 400){
+                alert("Digite apenas números ao pesquisar por id")
+            }
+            else if (resposta.ok)
+                return resposta.json()
+        })
+        .then(produto => {
+            if (produto){
+                exibirRetorno(produto)
+                div.style.visibility = "visible"
+            }
+        })
+    function exibirRetorno(produto) {
+
+        div.innerHTML =
+         `
+        <p>ID: ${produto.id}</p>
+        <p>Nome: ${produto.nome}</p>
+        <p>Valor: R$ ${produto.valor}</p>
+        <p>Estoque: ${produto.estoque}</p>
+         `
+    }
 })
 botaoCadastro.addEventListener("click", ()=>{
     voltar("mostrar");
@@ -74,13 +104,20 @@ botaoCadastro.addEventListener("click", ()=>{
     botaoVoltar.onclick = () => {
         formulario.style.visibility = "hidden"
     }
-    cadastrar.addEventListener ( "click", () => {
-        fetch("/api/produtos", {method:"POST"})
-            .then(resposta =>{
-            //Terminar essa parte de cadastro e descobrir porque tá gerando requisição dupla
-            })
-    })
 })
+formulario.addEventListener("submit", (evento) => {
+
+    evento.preventDefault();
+
+    const dadosFormulario = new FormData(formulario);
+
+    fetch("/api/produtos", {method: "POST", body: dadosFormulario})
+        .then(resposta => {
+            if (resposta.ok) {
+                return resposta.json();
+            }
+        })
+});
 botaoDeletar.addEventListener("click", ()=>{
     fetch("/api/produtos", {method:"DELETE"})
 })
