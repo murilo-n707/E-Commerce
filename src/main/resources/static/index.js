@@ -7,7 +7,6 @@ const botaoVoltar = document.getElementById("voltar")
 const tabela = document.getElementById("tabela");
 const corpoTabela = document.getElementById("corpo_tabela")
 const formulario = document.getElementById("formulario")
-const botaoFechar = document.getElementById("botao_fechar")
 
 
 function voltar(a) {
@@ -26,7 +25,6 @@ function botoesPrincipais(a) {
         botoes.forEach(e => e.style.visibility = "hidden");
     }
 }
-
 
 botaoListar.addEventListener("click", () => {
     fetch("/api/produtos/listar", {method:"GET"})
@@ -82,9 +80,13 @@ botaoBuscar.addEventListener("click", () =>{
         })
         .then(produto => {
             if (produto){
-                botaoFechar.style.visibility = "visible"
+                botaoVoltar.style.visibility = "visible"
                 exibirRetorno(produto)
                 div.style.visibility = "visible"
+                botoesPrincipais("esconder")
+                botaoVoltar.onclick = () => {
+                    div.style.visibility = "hidden"
+                }
             }
         })
     function exibirRetorno(produto) {
@@ -116,18 +118,36 @@ formulario.addEventListener("submit", (evento) => {
     fetch("/api/produtos", {method: "POST", body: dadosFormulario})
         .then(resposta => {
             if (resposta.ok) {
+                alert("Item criado com sucesso no banco de dados!")
+                formulario.reset()
                 return resposta.json();
             }
         })
 });
 botaoDeletar.addEventListener("click", ()=>{
-    fetch("/api/produtos", {method:"DELETE"})
+
+    let deletar_id = prompt("Digite o id do item a ser deletado")
+
+    fetch(`/api/produtos/${deletar_id}`, {method:"DELETE"})
+        .then(resposta => {
+            if(resposta){
+                if (resposta.status === 404){
+                    alert("Produto não encontrado no banco de dados")
+                }
+                else if(resposta.status === 400){
+                    alert("Digite apenas números ao pesquisar por id")
+                }
+                else if (resposta.ok){
+                    alert("Item deletado do banco de dados com sucesso!")
+                }
+            }
+
+        })
 })
 botaoVoltar.addEventListener("click", () => {
     function botoesVisiveis() {
         return botoes[0] && botoes[0].checkVisibility()
     }
-
     botoes.forEach(e => e.style.visibility = "visible");
     if (botoesVisiveis() === true){
         voltar("esconder")
